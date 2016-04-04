@@ -26,6 +26,10 @@ def cli_interface():
     by convention it is helpful to have a wrapper_cli method that interfaces
     from commandline to function spaaaaaace.
     """
-    inpath  =     sys.argv[1]
-    outpath =     sys.argv[2]
+    try:
+        inpath  = sys.argv[1]
+        outpath = sys.argv[2]
+    except:
+        print("usage: {}  <inpath>  <outpath>".format(sys.argv[0]))
+        sys.exit(1)
     interface(inpath, outpath)
