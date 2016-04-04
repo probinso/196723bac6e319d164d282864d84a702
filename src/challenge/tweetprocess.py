@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# PYTHON_ARGCOMPLETE_OK
 
 # EXTERNAL PACKAGES
 from itertools import permutations
