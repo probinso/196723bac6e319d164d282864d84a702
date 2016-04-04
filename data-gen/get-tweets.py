@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Import the necessary methods from tweepy library
 from tweepy.streaming import StreamListener
