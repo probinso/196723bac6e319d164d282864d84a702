@@ -26,7 +26,7 @@ def clean_tweets(instream):
       cleans them into a simple dict, only containing
       'hashtags' and 'created_at'
 
-    Only yields correctly formated tweets with two or more hashtags
+    Only yields correctly formated tweets
     """
     def datetimeify(datestr):
         tstamp = strptime(datestr, '%a %b %d %H:%M:%S %z %Y')
@@ -41,14 +41,14 @@ def clean_tweets(instream):
     def clean(line):
         raw = json.loads(line)
 
-        ret = {}
-        if 'created_at' in raw.keys() and \
+        ret = dict()
+        if raw and \
+           'created_at' in raw.keys() and \
            'entities'   in raw.keys() and \
-           'hashtags'   in raw['entities'].keys() and \
-           len(raw['entities']['hashtags']) > 1:
+           'hashtags'   in raw['entities'].keys():
             ret['created_at'] = datetimeify(raw['created_at'])
             _ = [hashs['text'] for hashs in raw['entities']['hashtags']]
-            tags = sorted(set(map(str.lower, _)))
+            tags = sorted(set(_))
             ret['hashtags'] = tags
 
         return ret
@@ -57,6 +57,7 @@ def clean_tweets(instream):
         cleaned = clean(line)
         if cleaned:
             yield cleaned
+
 
 _Edge = namedtuple('Edge', ['timestamp', 'dst'])
 
@@ -82,11 +83,17 @@ class TimeGraph(defaultdict):
         self.__start = start()
         defaultdict.__init__(self, list)
 
-    def add(self, timestamp, src, dst):
+    def addEdges(self, timestamp, *pairs):
         """
-        Insert an edge into our TimeGraph
-        returns the 'rolling average' of the Graph
+        Update timestamp and insert edges into our TimeGraph
         """
+        for src, dst in pairs:
+            self._addEdge(timestamp, src, dst)
+
+        if (timestamp - self.__start) > self.__delta:
+            self._retime(timestamp)
+
+    def _addEdge(self, timestamp, src, dst):
         edge = _Edge(timestamp, dst)
 
         if self.__start < edge.timestamp:
@@ -96,15 +103,12 @@ class TimeGraph(defaultdict):
             f.append(new)
             self[src] = f
 
-        if (edge.timestamp - self.__start) > self.__delta:
-            self._retime(edge.timestamp)
-
     def averate_degree(self):
         """
         returns degree of graph
         """
         degrees = [len(self[key]) for key in self if self[key]]
-        return sum(degrees)/len(degrees)
+        return 0 if len(degrees) == 0 else sum(degrees)/len(degrees)
 
     def _retime(self, timestamp):
         """
