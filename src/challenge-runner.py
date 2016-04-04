@@ -5,8 +5,8 @@
 """Convenience wrapper for running bootstrap directly from source tree."""
 
 
-from challenge.challenge import main
+from challenge.tweetprocess import cli_interface
 
 
 if __name__ == '__main__':
-    main()
+    cli_interface()

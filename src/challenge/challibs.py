@@ -2,6 +2,7 @@ from collections import namedtuple, defaultdict
 from time import strptime
 from datetime import datetime, timedelta
 import json
+import sys
 
 def _split_filter(li, cond):
     """
@@ -54,7 +55,6 @@ def clean_tweets(instream):
         cleaned = clean(line)
         if cleaned:
             yield cleaned
-
 
 _Edge = namedtuple('Edge', ['timestamp', 'dst'])
 

@@ -2,9 +2,9 @@
 # PYTHON_ARGCOMPLETE_OK
 
 # EXTERNAL PACKAGES
-import argparse, argcomplete
 from itertools import permutations
 from functools import partial
+import sys
 
 # INTERNAL PACKAGES
 from .challibs import clean_tweets, TimeGraph
@@ -22,22 +22,11 @@ def interface(inpath, outpath):
 
             print("{0:.2f}".format(g.averate_degree()), file=outfile)
 
-def cli_interface(arguments):
+def cli_interface():
     """
     by convention it is helpful to have a wrapper_cli method that interfaces
     from commandline to function spaaaaaace.
     """
-    inpath  = arguments.inpath
-    outpath = arguments.outpath
+    inpath  =     sys.argv[1]
+    outpath =     sys.argv[2]
     interface(inpath, outpath)
-
-
-def generate_parser(parser):
-    parser.add_argument('inpath', type=str,
-                        help="Input file locatoin for raw tweets")
-
-    parser.add_argument('outpath', type=str,
-      help="Location to save processed tweets")
-
-    parser.set_defaults(func=cli_interface)
-    return parser

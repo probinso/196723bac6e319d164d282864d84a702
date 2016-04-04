@@ -7,7 +7,7 @@ if (( $# != 2)); then
 fi;
 COMMENT
 
-python3 ./src/challenge-runner.py rawtweet ./tweet_input/tweets.txt ./tweet_output/output.txt
+python3 ./src/challenge-runner.py ./tweet_input/tweets.txt ./tweet_output/output.txt
 
 
 
