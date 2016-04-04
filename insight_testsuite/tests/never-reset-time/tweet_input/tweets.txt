@@ -23,7 +23,7 @@
 {"created_at":"Thu Nov 05 01:05:22 +0000 2015","entities":{"hashtags":[{"text":"W"},{"text":"Z"}]}}
 {"created_at":"Thu Nov 05 01:05:23 +0000 2015","entities":{"hashtags":[{"text":"X"},{"text":"Z"}]}}
 {"created_at":"Thu Nov 05 01:05:24 +0000 2015","entities":{"hashtags":[{"text":"Y"},{"text":"Z"}]}}
-{"created_at":"Thu Nov 05 01:05:25 +0000 2015","entities":{"hashtags":[{"text":"Z"},{"text":"Z"}]}}
+{"created_at":"Thu Nov 05 01:05:25 +0000 2015","entities":{"hashtags":[{"text":"0Z"},{"text":"Z"}]}}
 {"created_at":"Thu Nov 05 01:05:26 +0000 2015","entities":{"hashtags":[{"text":"AA"},{"text":"Z"}]}}
 {"created_at":"Thu Nov 05 01:05:27 +0000 2015","entities":{"hashtags":[{"text":"AB"},{"text":"Z"}]}}
 {"created_at":"Thu Nov 05 01:05:28 +0000 2015","entities":{"hashtags":[{"text":"AC"},{"text":"Z"}]}}
