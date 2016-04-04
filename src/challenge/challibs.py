@@ -41,6 +41,7 @@ def clean_tweets(instream):
         ret = {}
         if 'created_at' in raw.keys() and \
            'entities'   in raw.keys() and \
+           'hashtags'   in raw['entities'].keys() and \
            len(raw['entities']['hashtags']) > 1:
             ret['created_at'] = datetimeify(raw['created_at'])
             _ = [hashs['text'] for hashs in raw['entities']['hashtags']]
