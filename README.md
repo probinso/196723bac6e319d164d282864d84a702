@@ -1,5 +1,4 @@
 ## Repo directory structure
-Alternatively, here is example output of the `tree` command:
 
 	├── README.md 
 	├── run.sh
