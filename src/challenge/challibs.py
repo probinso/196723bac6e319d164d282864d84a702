@@ -50,7 +50,6 @@ def clean_tweets(instream):
             _ = [hashs['text'] for hashs in raw['entities']['hashtags']]
             tags = sorted(set(_))
             ret['hashtags'] = tags
-
         return ret
 
     for line in instream:
@@ -115,9 +114,11 @@ class TimeGraph(defaultdict):
         updates time information and cleans old edges
         """
         self.__start = timestamp - self.__delta
+        fnc = lambda x: x.timestamp >= self.__start
         remove = []
+
         for key in self:
-            self[key] = list(filter(lambda x: x.timestamp >= self.__start, self[key]))
+            self[key] = list(filter(fnc, self[key]))
             if not self[key]:
                 remove.append(key)
 
