@@ -39,7 +39,10 @@ def clean_tweets(instream):
         return datetime(*simple)
 
     def clean(line):
-        raw = json.loads(line)
+        try:
+            raw = json.loads(line)
+        except:
+            return None
 
         ret = dict()
         if raw and \
