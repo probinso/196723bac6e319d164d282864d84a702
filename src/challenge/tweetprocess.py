@@ -15,8 +15,8 @@ def interface(inpath, outpath):
             local = partial(g.addEdges, tweet['created_at'])
             tags  = sorted(set(tweet['hashtags']))
             local(*permutations(tags, 2))
-
             print("{0:.2f}".format(g.averate_degree()), file=outfile)
+
 
 def cli_interface():
     """
