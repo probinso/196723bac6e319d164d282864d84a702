@@ -1,8 +1,7 @@
-#!/usr/bin/env python3
 
 # EXTERNAL PACKAGES
-from itertools import permutations
 from functools import partial
+from itertools import permutations
 import sys
 
 # INTERNAL PACKAGES
@@ -13,11 +12,9 @@ def interface(inpath, outpath):
          open(outpath, 'w+') as outfile:
         g = TimeGraph(60)
         for tweet in clean_tweets(infile):
-            local = partial(g.add, tweet['created_at'])
+            local = partial(g.addEdges, tweet['created_at'])
             tags  = sorted(set(tweet['hashtags']))
-
-            for src, dst in permutations(tags, 2):
-                local(src, dst)
+            local(*permutations(tags, 2))
 
             print("{0:.2f}".format(g.averate_degree()), file=outfile)
 

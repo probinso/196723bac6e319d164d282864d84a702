@@ -1,8 +1,10 @@
+
+# External Packages
 from collections import namedtuple, defaultdict
-from time import strptime
 from datetime import datetime, timedelta
 import json
-import sys
+from time import strptime
+
 
 def _split_filter(li, cond):
     """
