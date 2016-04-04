@@ -10,10 +10,17 @@ Structures used to solve problem are described in `./src/challenge/challibs.py`.
 
 # Tests
 always-reset-time  : list of parsable tweets that are all 60 seconds appart
+empty              : process over empty file
 gradual-reset-time : list of 120 parsable tweets seperated by a second
-malformed-input    : list of garbage output
+malformed-input    : list of garbage input, treated same as limit-json entries
 never-reset-time   : list of 60 parsable tweets seperated by a second
+one-tweet          : simplified single tweet
 time-without-edge  : update graph with new tweet that has no edge
+
+Large test was not included, due to size. Large test had
+ * 306011 lines of text pulled using `./data/get-tweets.py` (874M)
+ * contained 16484 limits, which registered as malformed input
+ * produced 289527 lines of text in output in 5m27.199s with trivial memory profile
 
 ## Repo directory structure
 
