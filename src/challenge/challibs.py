@@ -92,14 +92,15 @@ class TimeGraph(defaultdict):
         for src, dst in pairs:
             self._addEdge(timestamp, src, dst)
 
-        if (timestamp - self.__start) > self.__delta:
+        if (timestamp - self.__start) >= self.__delta:
             self._retime(timestamp)
 
     def _addEdge(self, timestamp, src, dst):
         edge = _Edge(timestamp, dst)
+        same_destination = lambda x: x.dst == edge.dst
 
-        if self.__start < edge.timestamp:
-            [f, t] = _split_filter(self[src], lambda x: x.dst == edge.dst)
+        if self.__start <= edge.timestamp:
+            [f, t] = _split_filter(self[src], same_destination)
             t.append(edge)
             new = max(t, key=lambda x: x.timestamp)
             f.append(new)
@@ -117,11 +118,11 @@ class TimeGraph(defaultdict):
         updates time information and cleans old edges
         """
         self.__start = timestamp - self.__delta
-        fnc = lambda x: x.timestamp >= self.__start
+        in_time_range = lambda x: x.timestamp > self.__start
         remove = []
 
         for key in self:
-            self[key] = list(filter(fnc, self[key]))
+            self[key] = list(filter(in_time_range, self[key]))
             if not self[key]:
                 remove.append(key)
 
