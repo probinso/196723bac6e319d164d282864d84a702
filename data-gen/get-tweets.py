@@ -8,10 +8,11 @@ from datetime import datetime
 from pprint import pprint
 import json
 import os
+import os.path as osp
 
 # loads Twitter credentials from .twitter file that is in the same directory as this script
-file_dir = os.path.dirname(os.path.realpath(__file__)) 
-with open(file_dir + '/.twitter') as twitter_file:  
+file_dir = os.path.dirname(osp.realpath(__file__)) 
+with open(osp.join(file_dir, '.twitter')) as twitter_file:  
     twitter_cred = json.load(twitter_file)
 
 # authentication from the credentials file above
@@ -33,7 +34,7 @@ class StdOutListener(StreamListener):
             f = file(self.filename, 'w')
             f.close()
         with open(self.filename, 'ab') as f:     
-            f.write(data)
+            f.write(bytes(data, 'UTF-8'))
         f.closed
         
     # this is the event handler for errors    
@@ -41,10 +42,10 @@ class StdOutListener(StreamListener):
         print(status)
 
 if __name__ == '__main__':
-    listener = StdOutListener(file_dir + "/tweets.txt")
+    listener = StdOutListener(osp.join(file_dir, 'tweets.txt'))
     auth = OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
 
-    print "Use CTRL + C to exit at any time.\n"
+    print("Use CTRL + C to exit at any time.\n")
     stream = Stream(auth, listener)
     stream.filter(locations=[-180,-90,180,90]) # this is the entire world, any tweet with geo-location enabled
