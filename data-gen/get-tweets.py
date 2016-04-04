@@ -31,9 +31,9 @@ class StdOutListener(StreamListener):
     # this is the event handler for new data
     def on_data(self, data):
         if not os.path.isfile(self.filename):    # check if file doesn't exist
-            f = file(self.filename, 'w')
+            f = open(self.filename, 'w+')
             f.close()
-        with open(self.filename, 'ab') as f:     
+        with open(self.filename, 'ab') as f:
             f.write(bytes(data, 'UTF-8'))
         f.closed
         
